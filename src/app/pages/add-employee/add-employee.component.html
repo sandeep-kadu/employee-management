@@ -1,0 +1,28 @@
+<h2>Add Employee</h2>
+
+<br>
+
+<input
+type="text"
+placeholder="Employee Id"
+[(ngModel)]="employee.id">
+
+<br><br>
+
+<input
+type="text"
+placeholder="Employee Name"
+[(ngModel)]="employee.name">
+
+<br><br>
+
+<input
+type="text"
+placeholder="Department"
+[(ngModel)]="employee.department">
+
+<br><br>
+
+<button (click)="save()">
+ Save
+</button>
