@@ -3,20 +3,35 @@
 <table border="1">
 
   <tr>
-    <th>ID</th>
     <th>Name</th>
     <th>Department</th>
+    <th>Salary</th>
+    <th>Action</th>
   </tr>
-
+ <!-- ! is used to tell typescript that emp.id is not null or undefined in simple 
+        language ! tells angular that employee object coming from GET must have id. -->
   @for(emp of employees; track emp.id){
 
     <tr>
 
-      <td>{{emp.id}}</td>
-
       <td>{{emp.name}}</td>
 
       <td>{{emp.department}}</td>
+
+      <td>{{emp.salary}}</td>
+
+
+      <td>
+          <button (click)="editEmployee(emp.id!)"> 
+            Edit
+          </button>
+
+           &nbsp;
+
+          <button (click)="deleteEmployee(emp.id!)">
+              Delete
+          </button>
+      </td>
 
     </tr>
 

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {EmployeeService} from '../../services/employee.service';  
+import { Employee } from '../../models/employee';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -8,9 +10,66 @@ import {EmployeeService} from '../../services/employee.service';
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })
-export class EmployeeListComponent {
+export class EmployeeListComponent implements OnInit {
 
-  constructor(public employeeService: EmployeeService) { }
+  employees: Employee[] = [];
+
+  constructor(public employeeService: EmployeeService, private router: Router) { }
+
+  ngOnInit(): void {
+
+    this.loadEmployees();
+  }
+
+  loadEmployees(): void {
+
+    this.employeeService.getAllEmployees().subscribe({
+
+      next : (data) => {
+        console.log(data);
+        this.employees = data;
+      },
+
+      error : (err) => {
+        console.error(err);
+      }
+    });
+
+  }
+
+  editEmployee(id: number) {
+
+    this.router.navigate(['/edit-employee', id]);
+
+}
+
+deleteEmployee(id: number) {
+
+  if (confirm('Are you sure?')) {
+
+    this.employeeService.deleteEmployee(id).subscribe({
+
+      next: () => {
+
+        alert('Employee Deleted');
+
+        this.loadEmployees();
+
+      },
+
+      error: (err) => {
+
+        console.error(err);
+
+      }
+
+    });
+
+  }
+
+}
+
+  
  /*  employees = [
     {
       id: 1,
@@ -27,10 +86,10 @@ export class EmployeeListComponent {
       name: 'Neha',
       department: 'Finance'
     }
-  ]; */
+  ]; 
 
   get employees() {
     return this.employeeService.employees;
-  }
+  }*/
 
 }
