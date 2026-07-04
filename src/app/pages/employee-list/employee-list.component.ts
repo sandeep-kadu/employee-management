@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {EmployeeService} from '../../services/employee.service';  
 
 @Component({
   selector: 'app-employee-list',
@@ -9,7 +10,8 @@ import { Component } from '@angular/core';
 })
 export class EmployeeListComponent {
 
-  employees = [
+  constructor(public employeeService: EmployeeService) { }
+ /*  employees = [
     {
       id: 1,
       name: 'Rahul',
@@ -25,6 +27,10 @@ export class EmployeeListComponent {
       name: 'Neha',
       department: 'Finance'
     }
-  ];
+  ]; */
+
+  get employees() {
+    return this.employeeService.employees;
+  }
 
 }

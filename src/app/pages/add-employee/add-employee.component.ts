@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { EmployeeService } from '../../services/employee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-employee',
@@ -10,6 +12,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class AddEmployeeComponent {
 
+  constructor(
+    private employeeService: EmployeeService,
+    private router: Router
+  ) {}
+
   employee = {
     id: 0,
     name: '',
@@ -18,9 +25,11 @@ export class AddEmployeeComponent {
 
   save() {
 
-    console.log(this.employee);
+    //console.log(this.employee);
+    this.employeeService.addEmployee(this.employee);
+      //alert('Employee Saved');
+      this.router.navigate(['/employees']);
 
-    alert('Employee Saved');
 
   }
 
